@@ -10,3 +10,7 @@
 *.lai
 *.la
 *.a
+
+#output result files 
+*.out
+
