@@ -1,0 +1,7 @@
+BOOK_ITA
+========
+
+Store the my implementation codes for <Introduction to Algorithm>
+
+Each dictory has some algorithms in one chapter, th dirctory is named as below format: 
+<chapter numbers>_<algorithm names>

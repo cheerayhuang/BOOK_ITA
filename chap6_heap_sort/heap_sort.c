@@ -1,17 +1,27 @@
 #include <stdio.h> 
 #include <stdlib.h>
+#include <memory.h> 
+#include <sys/time.h> 
 
 #define MAXSIZE 50000
 
-#define PARENT(x) ((x)/2)
-#define L_CHILD(x) (2*(x))
-#define R_CHILD(x) (2*(x)+1)
+#define L_CHILD(x) (2*((x)+1)-1)
+#define R_CHILD(x) (2*((x)+1))
+
+void keep_heap_properties(int [], int, int); 
 
 void build_max_heap(int array[], int len) 
 {
-    int i; 
+    int i;
+    
+    len--; 
 
-    for(i = len / 2; i >= 0; --i) {
+    if(len % 2 == 0) 
+        i = len / 2 - 1; 
+    else 
+        i = len / 2; 
+
+    for(; i >= 0; --i) {
         keep_heap_properties(array, i, len);  
     }
 }
@@ -20,34 +30,35 @@ void keep_heap_properties(int array[], int root_pos,  int len)
 {
     int next_root_pos = root_pos; 
 
-    if(next_root_pos == len
+    if(next_root_pos == len) 
+        return; 
 
-    if(array[next_root_pos] < array[L_CHILD(root_pos)]) {
+    if(L_CHILD(root_pos) <= len && array[next_root_pos] < array[L_CHILD(root_pos)]) {
         next_root_pos = L_CHILD(root_pos); 
     }
 
-    if(array[next_root_pos] < array[R_CHILD(root_pos)]) { 
+    if(R_CHILD(root_pos) <= len && array[next_root_pos] < array[R_CHILD(root_pos)]) { 
         next_root_pos = R_CHILD(root_pos); 
     }
 
     if(next_root_pos != root_pos) {
         
-        int tmp = a[next_root_pos]; 
-        a[next_root_pos] = a[root_pos]; 
-        a[root_pos] = a[next_root_pos]; 
+        int tmp = array[next_root_pos]; 
+        array[next_root_pos] = array[root_pos]; 
+        array[root_pos] = tmp; 
     
         keep_heap_properties(array, next_root_pos, len); 
 
     }
 }
 
-void heap_sort(int array[], int len) 
+int* heap_sort(int array[], int len) 
 {
     int rear = len; 
 
-    int result[MAXSIZE]; 
+    int *result = (int*)malloc(sizeof(int)*len); 
 
-    memset(result, 0, sizeof(int)*MAXSIZE);
+    memset(result, 0, sizeof(int)*len);
 
 
     while(rear > 0) {
@@ -56,14 +67,17 @@ void heap_sort(int array[], int len)
         result[--rear] = array[0];
 
         array[0] = array[rear]; 
-        keep_heap_properties(array, 0, rear); 
+        keep_heap_properties(array, 0, rear-1); 
 
     }
+
+    return result;  
 }
 
 int main() 
 {
     int array[MAXSIZE]; 
+    int *result; 
 
     FILE *fp = fopen("numbers.txt", "r"); 
 
@@ -76,7 +90,22 @@ int main()
 
     fclose(fp); 
 
-    heap_sort(array, len); 
+    struct timeval begin_time, end_time; 
+
+    gettimeofday(&begin_time, NULL); 
+    build_max_heap(array, len); 
+    result = heap_sort(array, len);
+    gettimeofday(&end_time, NULL); 
+
+    fp = fopen("heap_sort.out", "w"); 
+
+    for(i = 0; i < len; ++i) 
+        fprintf(fp, "%d ", result[i]); 
+    fclose(fp); 
+
+    free(result);
+
+    printf("elapsed time = %ld uSecs.\n", (end_time.tv_sec-begin_time.tv_sec)*1000000 + (end_time.tv_usec-begin_time.tv_usec));
 
     return 0; 
 }
