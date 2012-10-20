@@ -72,7 +72,7 @@ int main()
 
 
     for(i = 0; i < len; ++i) 
-        fprintf(fp, "%d ", result[i]); 
+        fprintf(fp, "%d\n", result[i]); 
 
     fclose(fp); 
 
