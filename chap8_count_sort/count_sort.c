@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <memory.h> 
+#include <sys/time.h> 
 
 #define MAXSIZE 50000
 
@@ -56,12 +57,16 @@ int main()
 
     int count[MAXSIZE]; // in this example, the value of input numbers are all less than 50000. 
     memset(count, 0, sizeof(int)*MAXSIZE); 
+
+    struct timeval begin_time, end_time; 
+    gettimeofday(&begin_time, NULL);
     count_number(array, count, len);
 
     //count sort. 
 
     int result[MAXSIZE]; // the total of numbers is not more than 50000. 
     count_sort(array, result, count, len); 
+    gettimeofday(&end_time, NULL); 
 
     fp = fopen("count_sort.out", "w"); 
 
@@ -70,6 +75,8 @@ int main()
         fprintf(fp, "%d ", result[i]); 
 
     fclose(fp); 
+
+    printf("elapsed time = %ld uSecs.\n", (end_time.tv_sec-       begin_time.tv_sec)*1000000 + (end_time.tv_usec-begin_time.tv_usec));
 
     return 0; 
 }
