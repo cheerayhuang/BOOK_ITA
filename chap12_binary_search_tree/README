@@ -1,0 +1,8 @@
+This program will use the binary-search-tree example in page 157 in ITA as input data to test, as below:
+
+       15
+   5        16
+3    12        20
+  10   13   18    23 
+6  
+   7
