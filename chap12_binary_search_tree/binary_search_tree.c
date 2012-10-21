@@ -168,6 +168,9 @@ void delete(TREE tree_p, int i)
     else 
         tmp->parent->right = x; 
 
+    if(x != NULL) 
+        x->parent = tmp->parent; 
+
     free(tmp); 
 
 }

@@ -1,0 +1,4 @@
+I use the case from http://blog.csdn.net/v_JULY_v/article/details/6284050 to test my red black tree. 
+
+In that web site, it gives each step in insertion and deletion procedure. So, I print each step to compare that.
+
