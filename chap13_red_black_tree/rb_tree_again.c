@@ -198,6 +198,10 @@ void rb_tree_delete_fixup(RB_TREE* rb_tree_p, RB_TREE x)
                 brother->color = RED; 
                 x = x->parent; 
                 parent = x->parent; 
+                if(x->color == RED) {
+                    x->color = BLACK; 
+                    break; 
+                }
             
             }
             else if(brother->left->color == RED) {
@@ -233,6 +237,10 @@ void rb_tree_delete_fixup(RB_TREE* rb_tree_p, RB_TREE x)
                 brother->color = RED; 
                 x = x->parent; 
                 parent = x->parent; 
+                if(x->color == RED) {
+                    x->color = BLACK; 
+                    break;
+                }
             }
             else if(brother->right->color == RED) {
                 brother->right->color = BLACK;
@@ -251,7 +259,7 @@ void rb_tree_delete_fixup(RB_TREE* rb_tree_p, RB_TREE x)
         }
     }
 
-    x->color = BLACK;
+    //x->color = BLACK;
 }
 
 void rb_tree_delete(RB_TREE *rb_tree_p, int tmp)
@@ -279,9 +287,10 @@ void rb_tree_delete(RB_TREE *rb_tree_p, int tmp)
 
     x->parent = tmp_p->parent; 
 
-    if(tmp_p->color == BLACK) 
+    if(tmp_p->color == BLACK && x->color != RED) 
         rb_tree_delete_fixup(rb_tree_p, x); 
 
+    else x->color = BLACK;
 
 }
 
