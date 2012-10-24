@@ -92,13 +92,14 @@ void DFS(ADJACENT_LIST graph, int vertex_num)
             info[i].detect_time = ++time; 
             info[i].color = GRAY; 
             DFS_visit(i, info, graph, &time); 
+            printf("\n"); 
         }
 
         // change to a new line to print another dfs tree..
-        printf("\n"); 
     }
     
     // print detect/finish time.
+    printf("\ntime seal:\n");
     for(i = 1; i <= vertex_num; ++i) {
         printf("%d: %d/%d\n", i, info[i].detect_time, info[i].finish_time); 
 
@@ -106,15 +107,17 @@ void DFS(ADJACENT_LIST graph, int vertex_num)
 
     // topology sort. 
 
+    printf("\ntopology sort:\n"); 
     TOPOLOGY_RESULT t = result; 
     while(t != NULL) {
         printf("%d ", t->vertex); 
         t = t->next; 
     }
 
-    printf("\n"); 
+    printf("\n");
     // strongly connected component
     
+    printf("\nstrongly connected component:\n"); 
     ADJACENT_LIST graph2; 
 
     NODE tmp = (NODE)malloc(sizeof(struct node)); 
@@ -154,8 +157,9 @@ void DFS(ADJACENT_LIST graph, int vertex_num)
             info[t->vertex].detect_time = ++time;
             printf("%d", t->vertex); 
             DFS_visit(t->vertex, info, graph2, &time); 
+
+            printf("\n"); 
         }
-        printf("\n"); 
         t = t->next; 
     }
 
