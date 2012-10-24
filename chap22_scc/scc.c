@@ -33,7 +33,7 @@ TOPOLOGY_RESULT result;
 void DFS_visit(int i, INFO_OF_NODE info, ADJACENT_LIST graph, int *time)
 
 {
-    NODE node_p = graph[i]; 
+    NODE node_p = graph[i]->next; 
 
     int u = node_p->data; 
 
@@ -117,9 +117,26 @@ void DFS(ADJACENT_LIST graph, int vertex_num)
     
     ADJACENT_LIST graph2; 
 
+    NODE tmp = (NODE)malloc(sizeof(struct node)); 
+    tmp->data = -1; 
+    tmp->next = NULL; 
+
+    for(i = 1; i <= vertex_num; ++i) {
+        graph2[i] = (NODE)malloc(sizeof(struct node)); 
+        graph2[i]->next = tmp ;
+    }
+
     for(i = 1; i <= vertex_num; ++i) {
         
-    
+        NODE node_p = graph[i]->next; 
+        while(node_p->data != -1) {
+            NODE node2_p = (NODE)malloc(sizeof(struct node)); 
+            node2_p->data = i; 
+            node2_p->next = graph2[node_p->data]->next; 
+            graph2[node_p->data]->next = node2_p; 
+            node_p = node_p->next; 
+
+        }
     }
     
     for(i = 1; i <= vertex_num; ++i) {
@@ -136,7 +153,7 @@ void DFS(ADJACENT_LIST graph, int vertex_num)
             info[t->vertex].color = GRAY; 
             info[t->vertex].detect_time = ++time;
             printf("%d", t->vertex); 
-            DFS_visit(t->vertex, info, graph, &time); 
+            DFS_visit(t->vertex, info, graph2, &time); 
         }
         printf("\n"); 
         t = t->next; 
