@@ -44,11 +44,12 @@ void print_shortest_path(INFO_OF_NODE info, int vertex)
 {
     int i; 
 
-    if(info[vertex].parent != 0) 
+    if(info[vertex].parent != 0) {
         print_shortest_path(info, info[vertex].parent); 
-
-    
-    printf("%d-->", vertex); 
+        printf("-->%d", vertex); 
+    }
+    else 
+        printf("0-->%d", vertex); 
 
 }
 
@@ -85,7 +86,7 @@ int bellman_ford(ADJACENT_LIST graph, int weight[][MAXSIZE], int vertex_num)
         NODE h = graph[i]->next; 
 
         while(h->data != -1) {
-            if(info[j].path_len + weight[j][h->data] < info[h->data].path_len) 
+            if(info[i].path_len + weight[i][h->data] < info[h->data].path_len) 
                 return 0; 
             h = h->next; 
         }
@@ -94,8 +95,7 @@ int bellman_ford(ADJACENT_LIST graph, int weight[][MAXSIZE], int vertex_num)
     // Print 
     for(i = 1; i < vertex_num; ++i) {
         print_shortest_path(info, i);
-        printf("\n"); 
-        //printf("\b\b\b\n"); 
+        printf(" weight of path = %d\n", info[i].path_len); 
     }
 
     return 1; 
