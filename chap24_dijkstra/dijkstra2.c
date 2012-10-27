@@ -99,6 +99,8 @@ void build_min_heap(HEAP heap, INFO_OF_NODE info, int rear)
 
 void decrease_heap_node(HEAP heap, INFO_OF_NODE info, int heap_pos) 
 {
+    if(heap_pos == 0) 
+        return ;
 
     int x = info[heap[heap_pos]].path_len; 
     int parent_pos = heap_pos % 2 == 0 ? heap_pos / 2 - 1 : heap_pos / 2;
@@ -112,6 +114,8 @@ void decrease_heap_node(HEAP heap, INFO_OF_NODE info, int heap_pos)
 
         info[heap[heap_pos]].heap_pos = heap_pos; 
         info[heap[parent_pos]].heap_pos = parent_pos; 
+
+        if(parent_pos == 0) break; 
 
         heap_pos = parent_pos; 
         parent_pos = heap_pos % 2 == 0 ? heap_pos / 2 - 1 : heap_pos / 2;
@@ -155,6 +159,11 @@ void dijkstra(WEIGHT weight, int len, int src)
         int q = heap[0]; 
         info[q].color = BLACK; 
 
+        heap[0] = heap[--rear]; 
+        heap[rear] = q; 
+
+        keep_heap_property(heap, info, 0, rear); 
+
         int i; 
         for(i = 0; i < len; ++i) {
             
@@ -165,10 +174,6 @@ void dijkstra(WEIGHT weight, int len, int src)
 
         }
 
-        heap[0] = heap[--rear]; 
-        heap[rear] = q; 
-
-        keep_heap_property(heap, info, 0, rear); 
     }
 
     for(i = 0; i < len; ++i) {
