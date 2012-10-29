@@ -1,0 +1,113 @@
+node[0]: overplus=-29, hight=6
+node[1]: overplus=16, hight=1
+node[2]: overplus=0, hight=0
+node[3]: overplus=0, hight=0
+node[4]: overplus=0, hight=0
+node[5]: overplus=13, hight=1
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=4, hight=1
+node[2]: overplus=12, hight=0
+node[3]: overplus=0, hight=0
+node[4]: overplus=13, hight=0
+node[5]: overplus=0, hight=1
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=4, hight=2
+node[2]: overplus=12, hight=1
+node[3]: overplus=0, hight=0
+node[4]: overplus=13, hight=1
+node[5]: overplus=0, hight=1
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=2
+node[2]: overplus=0, hight=1
+node[3]: overplus=16, hight=0
+node[4]: overplus=9, hight=1
+node[5]: overplus=4, hight=1
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=2
+node[2]: overplus=0, hight=1
+node[3]: overplus=16, hight=0
+node[4]: overplus=9, hight=2
+node[5]: overplus=4, hight=3
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=4, hight=2
+node[2]: overplus=7, hight=1
+node[3]: overplus=16, hight=0
+node[4]: overplus=2, hight=2
+node[5]: overplus=0, hight=3
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=4, hight=2
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=2, hight=2
+node[5]: overplus=0, hight=3
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=4, hight=4
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=2, hight=4
+node[5]: overplus=0, hight=3
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=4
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=0, hight=4
+node[5]: overplus=6, hight=3
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=4
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=0, hight=4
+node[5]: overplus=6, hight=5
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=6, hight=4
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=0, hight=4
+node[5]: overplus=0, hight=5
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=6, hight=6
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=0, hight=4
+node[5]: overplus=0, hight=5
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=6
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=3, hight=4
+node[5]: overplus=3, hight=5
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=6
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=3, hight=6
+node[5]: overplus=3, hight=7
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=6
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=3, hight=8
+node[5]: overplus=3, hight=7
+----------
+node[0]: overplus=-29, hight=6
+node[1]: overplus=0, hight=6
+node[2]: overplus=0, hight=1
+node[3]: overplus=23, hight=0
+node[4]: overplus=0, hight=8
+node[5]: overplus=6, hight=7
+----------
+max flow = 23
