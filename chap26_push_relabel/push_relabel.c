@@ -22,13 +22,15 @@ typedef struct {
 const int s = 0; 
 const int t = 3;
 
-int find_push_target(int i, CAPACITY c, FLOW f, NODE_INFO n) 
+//int find_push_target(int i, CAPACITY c, FLOW f, NODE_INFO n) 
+
+int find_push_target(int i, RESIDUAL r, NODE_INFO n) 
 {
     int u; 
     int num = n[s].hight; 
 
     for(u = 0; u < num; ++u) {
-        if(n[i].hight == n[u].hight+1 && c[i][u]-f[i][u] > 0) {
+        if(n[i].hight == n[u].hight+1 && r[i][u] > 0) {
             return u; 
         }
     }
@@ -46,10 +48,12 @@ int push(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n)
 
     for(i = 0; i < num; ++i) {
 
-        int u = find_push_target(i, c, f, n);  
+        int u = find_push_target(i, r, n);  
         if(n[i].overplus > 0 && u != 0) {
             
-            int d = n[i].overplus < (c[i][u]-f[i][u]) ?  n[i].overplus : (c[i][u]-f[i][u]); 
+            //int d = n[i].overplus < (c[i][u]-f[i][u]) ?  n[i].overplus : (c[i][u]-f[i][u]); 
+
+            int d = n[i].overplus < r[i][u] ?  n[i].overplus : r[i][u]; 
 
             n[i].overplus -= d; 
             n[u].overplus += d; 
@@ -57,8 +61,8 @@ int push(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n)
             f[i][u] += d; 
             f[u][i] -= d; 
 
-            r[i][u] = c[i][u] - f[i][u];
-            r[u][i] = c[u][i] - f[u][i]; 
+            r[i][u] = r[i][u] - f[i][u];
+            r[u][i] = r[u][i] - f[u][i]; 
 
             is_pushed = 1; 
             //return 1; 
@@ -70,7 +74,9 @@ int push(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n)
 }
 
 
-int find_low_point(int i, CAPACITY c, FLOW f, NODE_INFO n) 
+//int find_low_point(int i, CAPACITY c, FLOW f, NODE_INFO n) 
+
+int find_low_point(int i, RESIDUAL r, NODE_INFO n) 
 {
     int u; 
     int num = n[s].hight; 
@@ -79,14 +85,14 @@ int find_low_point(int i, CAPACITY c, FLOW f, NODE_INFO n)
 
     for(u = 0; u < num; ++u) {
         
-        if(u != s && n[u].hight >= n[i].hight && c[i][u]-f[i][u] > 0) {
+        if(u != s && n[u].hight >= n[i].hight && r[i][u] > 0) {
             
             if(n[u].hight < min_hight) {
                 min_hight = n[u].hight; 
                 min_point = u; 
             }
         }
-        else if(n[u].hight < n[i].hight && c[i][u]-f[i][u] > 0) {
+        else if(n[u].hight < n[i].hight && r[i][u] > 0) {
 
             return 0; 
             
@@ -106,7 +112,7 @@ int relabel(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n)
 
     for(i = 0; i < num; ++i) {
         
-        int u = find_low_point(i, c, f, n); 
+        int u = find_low_point(i, r, n); 
         if(i != s && i != t && n[i].overplus > 0 && u != 0) { 
             
             n[i].hight = n[u].hight + 1; 
@@ -129,22 +135,26 @@ int main()
 
     int i, j; 
     CAPACITY capacity; 
+    RESIDUAL residual; 
 
+    memset(residual, 0, sizeof(residual)); 
     for(i = 0; i < vertex_num; ++i) 
-        for(j = 0; j < vertex_num; ++j) 
+        for(j = 0; j < vertex_num; ++j){ 
             fscanf(fp, "%d", &capacity[i][j]); 
+
+            residual[i][j] = capacity[i][j];
+
+    }
 
     fclose(fp); 
 
 
     FLOW flow; 
-    RESIDUAL residual; 
     NODE_INFO node_info; 
 
     //init_flow_state
 
     memset(flow, 0, sizeof(flow));
-    memset(residual, 0, sizeof(residual)); 
     memset(node_info, 0, sizeof(node_info)); 
 
     node_info[s].hight = vertex_num; 

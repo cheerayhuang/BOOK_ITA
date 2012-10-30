@@ -106,17 +106,17 @@ void print_all_flow(FLOW f, int vertex_num)
 
 }
 
-void edmonds_karp(CAPACITY c, int vertex_num) 
+void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num) 
 {
     FLOW flow; 
-    RESIDUAL residual; 
+    //RESIDUAL residual; 
 
     int t = 3; // in this case, the end point is 3. 
 
     memset(flow, 0, sizeof(flow)); 
-    memset(residual, 0, sizeof(residual)); 
+    //memset(residual, 0, sizeof(residual)); 
 
-    compute_residual_flow(c, flow, residual, vertex_num);
+    //compute_residual_flow(c, flow, residual, vertex_num);
 
     int *path; 
     path = bfs(residual, vertex_num, t);
@@ -134,6 +134,8 @@ void edmonds_karp(CAPACITY c, int vertex_num)
         k = 0; 
         while(path[k] != 0) {
             flow[path[k+1]][path[k]] += min_weight; 
+            residual[path[k+1]][path[k]] -= min_weight; 
+            residual[path[k]][path[k+1]] += min_weight; 
             k++; 
         }
 
@@ -141,9 +143,9 @@ void edmonds_karp(CAPACITY c, int vertex_num)
 
         print_all_flow(flow, vertex_num); 
 
-        memset(residual, 0, sizeof(residual)); 
+        //memset(residual, 0, sizeof(residual)); 
 
-        compute_residual_flow(c, flow, residual, vertex_num); 
+        //compute_residual_flow(c, flow, residual, vertex_num); 
         print_all_flow(residual, vertex_num); 
 
         path = bfs(residual, vertex_num, t); 
@@ -163,16 +165,22 @@ int main()
 
 
     CAPACITY capacity; 
+    RESIDUAL residual; 
 
     int i, j, vertex_num; 
 
     fscanf(fp, "%d\n", &vertex_num);
 
+    memset(residual, 0, sizeof(residual)); 
     for(i = 0; i < vertex_num; ++i) 
-        for(j = 0; j < vertex_num; ++j) 
+        for(j = 0; j < vertex_num; ++j) { 
             fscanf(fp, "%d", &capacity[i][j]); 
 
-    edmonds_karp(capacity, vertex_num); 
+            residual[i][j] = capacity[i][j]; 
+
+    }
+
+    edmonds_karp(capacity, residual, vertex_num); 
     
     fclose(fp); 
 
