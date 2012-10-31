@@ -38,7 +38,7 @@ int find_push_target(int i, RESIDUAL r, NODE_INFO n)
     return 0; 
 }
 
-int push(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n) 
+int push(FLOW f, RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n) 
 {
     int num = n[s].hight; 
 
@@ -102,7 +102,7 @@ int find_low_point(int i, RESIDUAL r, NODE_INFO n)
     return min_point; 
 }
 
-int relabel(FLOW f, RESIDUAL r, CAPACITY c, NODE_INFO n) 
+int relabel(/*FLOW f,*/ RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n) 
 {
     int num = n[s].hight; 
     
@@ -174,8 +174,8 @@ int main()
         }
     }
 
-    while(push(flow, residual, capacity, node_info) || 
-          relabel(flow, residual, capacity, node_info)) {
+    while(push(flow, residual, node_info) || 
+          relabel(residual, node_info)) {
     
         for(i = 0; i < 6; ++i) 
             printf("node[%d]: overplus=%d, hight=%d\n", i, node_info[i].overplus, node_info[i].hight); 

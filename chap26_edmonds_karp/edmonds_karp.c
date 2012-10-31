@@ -11,30 +11,6 @@ typedef CAPACITY FLOW;
 typedef CAPACITY RESIDUAL; 
 
 
-void compute_residual_flow(CAPACITY c, FLOW f, RESIDUAL r, int vertex_num) 
-{
-    int i, j;
-
-    for(i = 0; i < vertex_num; ++i) 
-        for( j = i + 1; j < vertex_num; ++j) {
-        
-            if(f[i][j] > 0) {
-                r[i][j] = c[i][j] - f[i][j]; 
-                r[j][i] = c[j][i] + f[i][j]; 
-            }
-            else if(f[j][i] > 0) {
-                r[i][j] = c[i][j] + f[j][i]; 
-                r[j][i] = c[j][i] - f[j][i]; 
-            }
-            else {
-                r[i][j] = c[i][j];  
-                r[j][i] = c[j][i]; 
-            }
-
-        }
-
-}
-
 void generate_shortest_path(int p[], int i, int *path) 
 {
     int k = 0; 
@@ -114,9 +90,6 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
     int t = 3; // in this case, the end point is 3. 
 
     memset(flow, 0, sizeof(flow)); 
-    //memset(residual, 0, sizeof(residual)); 
-
-    //compute_residual_flow(c, flow, residual, vertex_num);
 
     int *path; 
     path = bfs(residual, vertex_num, t);
@@ -143,9 +116,7 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
 
         print_all_flow(flow, vertex_num); 
 
-        //memset(residual, 0, sizeof(residual)); 
 
-        //compute_residual_flow(c, flow, residual, vertex_num); 
         print_all_flow(residual, vertex_num); 
 
         path = bfs(residual, vertex_num, t); 
