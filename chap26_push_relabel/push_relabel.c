@@ -61,8 +61,8 @@ int push(FLOW f, RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n)
             f[i][u] += d; 
             f[u][i] -= d; 
 
-            r[i][u] = r[i][u] - f[i][u];
-            r[u][i] = r[u][i] - f[u][i]; 
+            r[i][u] -= d;
+            r[u][i] += d; 
 
             is_pushed = 1; 
             //return 1; 
