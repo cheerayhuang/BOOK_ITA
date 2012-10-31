@@ -5,11 +5,11 @@
 
 #define MAXSIZE 100 
 
-typedef int FLOW[MAXSIZE][MAXSIZE];
+typedef int CAPACITY[MAXSIZE][MAXSIZE];
 
-typedef FLOW RESIDUAL; 
+typedef CAPACITY RESIDUAL; 
 
-typedef FLOW CAPACITY; 
+//typedef FLOW CAPACITY; 
 
 typedef struct {
     
@@ -32,7 +32,7 @@ typedef struct list *ADJACENT_LIST[MAXSIZE];
 const int s = 0; 
 const int t = 3;
 
-void push(int u, int v, FLOW f, RESIDUAL r, NODE_INFO n) 
+void push(int u, int v, /* FLOW f,*/ RESIDUAL r, NODE_INFO n) 
 {    
     
     // push u to v. 
@@ -41,8 +41,8 @@ void push(int u, int v, FLOW f, RESIDUAL r, NODE_INFO n)
     n[u].overplus -= d; 
     n[v].overplus += d; 
 
-    f[u][v] += d;  
-    f[v][u] -= d; 
+    //f[u][v] += d;  
+    //f[v][u] -= d; 
 
     r[u][v] -= d; 
     r[v][u] += d; 
@@ -66,7 +66,7 @@ void relabel(int u, RESIDUAL r, NODE_INFO n, LIST adj)
     n[u].hight = min; 
 }
 
-void discharge(int u, FLOW f, RESIDUAL r, NODE_INFO n, ADJACENT_LIST adj) 
+void discharge(int u, /*FLOW f,*/ RESIDUAL r, NODE_INFO n, ADJACENT_LIST adj) 
 {
     LIST h = adj[u]->next; 
 
@@ -84,7 +84,7 @@ void discharge(int u, FLOW f, RESIDUAL r, NODE_INFO n, ADJACENT_LIST adj)
         v = h->data; 
         if(r[u][v] > 0 && n[u].hight == n[v].hight+1) {
            
-            push(u, v, f, r, n); 
+            push(u, v, r, n); 
                 
         }
 
@@ -93,10 +93,10 @@ void discharge(int u, FLOW f, RESIDUAL r, NODE_INFO n, ADJACENT_LIST adj)
     }
 }
 
-void init_flow_state(CAPACITY capacity, FLOW flow, RESIDUAL residual, NODE_INFO node_info, int vertex_num) 
+void init_flow_state(CAPACITY capacity, /*FLOW flow,*/ RESIDUAL residual, NODE_INFO node_info, int vertex_num) 
 {
 
-    memset(flow, 0, sizeof(flow));
+    //memset(flow, 0, sizeof(flow));
     memset(node_info, 0, sizeof(node_info)); 
 
     node_info[s].hight = vertex_num; 
@@ -105,8 +105,8 @@ void init_flow_state(CAPACITY capacity, FLOW flow, RESIDUAL residual, NODE_INFO 
     for(i = 0; i < vertex_num; ++i) {
         if(capacity[s][i] > 0) {
             
-            flow[s][i] = capacity[s][i]; 
-            flow[i][s] = -capacity[s][i]; 
+            //flow[s][i] = capacity[s][i]; 
+            //flow[i][s] = -capacity[s][i]; 
 
             node_info[i].overplus = capacity[s][i]; 
             node_info[s].overplus -= capacity[s][i];
@@ -153,11 +153,11 @@ int main()
     }
     fclose(fp); 
 
-    FLOW flow; 
+    //FLOW flow; 
     NODE_INFO node_info; 
 
     //init_flow_state
-    init_flow_state(capacity, flow, residual, node_info, vertex_num);  
+    init_flow_state(capacity, residual, node_info, vertex_num);  
 
     //init list L and adjacnt list 
     
@@ -205,7 +205,7 @@ int main()
         if(node_info[u].overplus > 0) {
 
             int old_hight = node_info[u].hight; 
-            discharge(u, flow, residual, node_info, adj_list); 
+            discharge(u, residual, node_info, adj_list); 
             
             if( node_info[u].hight > old_hight) {
                 move_node_to_front(l, h); 

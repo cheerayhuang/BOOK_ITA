@@ -5,11 +5,9 @@
 
 #define MAXSIZE 100 
 
-typedef int FLOW[MAXSIZE][MAXSIZE];
+typedef int CAPACITY[MAXSIZE][MAXSIZE];
 
-typedef FLOW RESIDUAL; 
-
-typedef FLOW CAPACITY; 
+typedef CAPACITY RESIDUAL; 
 
 typedef struct {
     
@@ -38,7 +36,7 @@ int find_push_target(int i, RESIDUAL r, NODE_INFO n)
     return 0; 
 }
 
-int push(FLOW f, RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n) 
+int push(/*FLOW f,*/ RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n) 
 {
     int num = n[s].hight; 
 
@@ -58,8 +56,8 @@ int push(FLOW f, RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n)
             n[i].overplus -= d; 
             n[u].overplus += d; 
 
-            f[i][u] += d; 
-            f[u][i] -= d; 
+            //f[i][u] += d; 
+            //f[u][i] -= d; 
 
             r[i][u] -= d;
             r[u][i] += d; 
@@ -149,12 +147,12 @@ int main()
     fclose(fp); 
 
 
-    FLOW flow; 
+    //FLOW flow; 
     NODE_INFO node_info; 
 
     //init_flow_state
 
-    memset(flow, 0, sizeof(flow));
+    //memset(flow, 0, sizeof(flow));
     memset(node_info, 0, sizeof(node_info)); 
 
     node_info[s].hight = vertex_num; 
@@ -162,8 +160,8 @@ int main()
     for(i = 0; i < vertex_num; ++i) {
         if(capacity[s][i] > 0) {
             
-            flow[s][i] = capacity[s][i]; 
-            flow[i][s] = -capacity[s][i]; 
+            //flow[s][i] = capacity[s][i]; 
+            //flow[i][s] = -capacity[s][i]; 
 
             node_info[i].overplus = capacity[s][i]; 
             node_info[s].overplus -= capacity[s][i];
@@ -174,7 +172,7 @@ int main()
         }
     }
 
-    while(push(flow, residual, node_info) || 
+    while(push(residual, node_info) || 
           relabel(residual, node_info)) {
     
         for(i = 0; i < 6; ++i) 
@@ -183,12 +181,7 @@ int main()
 
     }
 
-    int sum = 0; 
-    for(i = 0; i < vertex_num; ++i) {
-        sum += flow[i][t]; 
-    }
-
-    printf("max flow = %d\n", sum); 
+    printf("max flow = %d\n", node_info[t].overplus); 
 
     return 0; 
 }
