@@ -1,0 +1,5 @@
+7
+abcbdab
+6
+bdcaba
+
