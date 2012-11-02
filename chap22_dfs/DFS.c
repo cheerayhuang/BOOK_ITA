@@ -64,7 +64,7 @@ void DFS_visit(int i, INFO_OF_NODE info, ADJACENT_LIST graph, int *time)
         
     }
 
-    // BLACK color is just used for checking whether an edge is cross edge or backward edge. 
+    // BLACK color is just used for checking whether an edge is cross edge or forward edge. 
     info[i].color = BLACK; 
     info[i].finish_time = ++(*time);
     TOPOLOGY_RESULT t = (TOPOLOGY_RESULT)malloc(sizeof(struct topology_result));
