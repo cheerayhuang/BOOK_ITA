@@ -38,7 +38,7 @@ void insert_sort(int array[], int begin, int end)
 
     key = 0; 
 
-    for(i = begin+1; i <= end; ++i) 
+    for(i = begin+1; i < end; ++i) 
     {
         
         key = array[i]; 
@@ -68,10 +68,10 @@ int locate(int array[], int begin, int end)
     int tmp; 
     int b, e, i, j; 
 
-    len = end - begin + 1;
+    len = end - begin;
     mid = begin + (len / 2); 
     b = begin; 
-    e = end; 
+    e = end-1; 
     i = begin; 
     j = begin+1; 
     
@@ -85,7 +85,7 @@ int locate(int array[], int begin, int end)
 
         b = get_middle(array, begin, begin+step, begin+step*2);
         mid = get_middle(array, begin+step*3, begin+step*4, begin+step*5); 
-        e = get_middle(array, begin+step*6, begin+step*7, end); 
+        e = get_middle(array, begin+step*6, begin+step*7, end-1); 
     }
     mid = get_middle(array, b, mid, e);
 
@@ -93,7 +93,7 @@ int locate(int array[], int begin, int end)
     array[mid] = array[begin]; 
     array[begin] = sign_value; 
 
-    for(; j <= end; ++j) 
+    for(; j < end; ++j) 
     {
         if(array[j] < sign_value) 
         {
@@ -124,10 +124,10 @@ void quick_sort(int array[], int begin, int end)
 
     mid = 0; 
 
-    if(end-begin+1 > 7) 
+    if(end-begin > 7) 
     {
         mid = locate(array, begin, end); 
-        quick_sort(array, begin, mid-1);
+        quick_sort(array, begin, mid);
         quick_sort(array, mid+1, end); 
     }
     else 
@@ -161,6 +161,7 @@ int main()
     for(i = 0; i < len; ++i)
     {
         fscanf(fp, "%d", &array[i]); 
+        printf("%d\n", array[i]); 
     }
     fclose(fp); 
 
