@@ -25,6 +25,9 @@ void build_max_heap(int array[], int len)
     else 
         i = len / 2; 
 
+    /*
+      from bottom to top, it avoids using recursion to biuld heap.
+    */
     for(; i >= 0; --i) {
         keep_heap_properties(array, i, len);  
     }
