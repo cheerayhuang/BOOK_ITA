@@ -108,7 +108,7 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
         while(path[k] != 0) {
             flow[path[k+1]][path[k]] += min_weight; 
             residual[path[k+1]][path[k]] -= min_weight; 
-            //residual[path[k]][path[k+1]] += min_weight; 
+            residual[path[k]][path[k+1]] += min_weight; 
             k++; 
         }
 
@@ -132,7 +132,7 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
 
 int main() 
 {
-    FILE *fp = fopen("edmonds_karp.txt", "r"); 
+    FILE *fp = fopen("edmonds_karp2.txt", "r"); 
 
 
     CAPACITY capacity; 

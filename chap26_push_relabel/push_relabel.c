@@ -60,7 +60,7 @@ int push(/*FLOW f,*/ RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n)
             //f[u][i] -= d; 
 
             r[i][u] -= d;
-            //r[u][i] += d; 
+            r[u][i] += d; 
 
             is_pushed = 1; 
             //return 1; 
@@ -125,7 +125,7 @@ int relabel(/*FLOW f,*/ RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n)
 
 int main() 
 {
-    FILE *fp = fopen("push_relabel.txt", "r"); 
+    FILE *fp = fopen("push_relabel2.txt", "r"); 
 
     int vertex_num; 
 
