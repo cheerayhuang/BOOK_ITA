@@ -14,7 +14,7 @@ typedef CAPACITY RESIDUAL;
 void generate_shortest_path(int p[], int i, int *path) 
 {
     int k = 0; 
-    int min = LONG_MAX; 
+    int min = INT_MAX; 
 
     while(i != 0) {
         path[k++] = i; 
@@ -97,7 +97,7 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
     while(path != NULL) {
         
         int k = 0; 
-        int min_weight = LONG_MAX; 
+        int min_weight = INT_MAX; 
 
         while(path[k] != 0) {
             if(residual[path[k+1]][path[k]] < min_weight) min_weight = residual[path[k+1]][path[k]]; 
@@ -108,7 +108,7 @@ void edmonds_karp(CAPACITY c, RESIDUAL residual, int vertex_num)
         while(path[k] != 0) {
             flow[path[k+1]][path[k]] += min_weight; 
             residual[path[k+1]][path[k]] -= min_weight; 
-            residual[path[k]][path[k+1]] += min_weight; 
+            //residual[path[k]][path[k+1]] += min_weight; 
             k++; 
         }
 

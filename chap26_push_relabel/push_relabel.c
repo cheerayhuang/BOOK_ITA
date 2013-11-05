@@ -60,7 +60,7 @@ int push(/*FLOW f,*/ RESIDUAL r, /*CAPACITY c,*/ NODE_INFO n)
             //f[u][i] -= d; 
 
             r[i][u] -= d;
-            r[u][i] += d; 
+            //r[u][i] += d; 
 
             is_pushed = 1; 
             //return 1; 
@@ -78,7 +78,7 @@ int find_low_point(int i, RESIDUAL r, NODE_INFO n)
 {
     int u; 
     int num = n[s].hight; 
-    int min_hight = LONG_MAX;
+    int min_hight = INT_MAX;
     int min_point = 0; 
 
     for(u = 0; u < num; ++u) {
