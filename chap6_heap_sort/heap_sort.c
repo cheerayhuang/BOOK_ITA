@@ -15,6 +15,10 @@ void build_max_heap(int array[], int len)
     int i;
     
     len--; 
+    
+    /*
+      len / 2 (or len / 2 - 1) can get the shortest sub-tree's root.
+    */
 
     if(len % 2 == 0) 
         i = len / 2 - 1; 
